@@ -7,16 +7,24 @@ import javax.ws.rs.core.MultivaluedMap;
 import java.util.HashMap;
 import java.util.Map;
 
+
 public class RequestInformation {
 
     private String url;
     private Object body;
-    private Headers headers = new Headers();
-    private MultivaluedMap<String, Object> multipart = new MultivaluedHashMap<>();
+    //private Headers headers = new Headers();
+   // private MultivaluedMap<String, Object> multipart = new MultivaluedHashMap<>();
     private HashMap<String, String> queryParams = new HashMap<>();
 
+    //private String url;
+    private Map<String, String> params = new HashMap<>();
+    private MultivaluedMap <String, Object> headers= new MultivaluedHashMap<>();
+    //private String body;
 
 
+    public MultivaluedMap<String, Object> getHeaders() {
+        return headers;
+    }
 
     public RequestInformation() {
     }
@@ -26,6 +34,17 @@ public class RequestInformation {
         this.body = body;
     }
 
+    public RequestInformation(String url, Map<String, String> params, MultivaluedMap<String, Object> headers, String body) {
+        this.url = url;
+        this.params = params;
+        this.headers = headers;
+        this.body = body;
+    }
+
+
+    public void addHeaders(String attribute,String value){
+        this.headers.add(attribute,value);
+    }
     public void setUrl(String url) {
         this.url = url;
     }
@@ -34,17 +53,9 @@ public class RequestInformation {
         this.body = body;
     }
 
-    public void setHeaders(Headers headers) {
-        this.headers = headers;
-    }
 
-    public void setMultipart(MultivaluedMap<String, Object> multipart) {
-        this.multipart = multipart;
-    }
 
-    public void setQueryParams(HashMap<String, String> queryParams) {
-        this.queryParams = queryParams;
-    }
+
 
     public String getUrl() {
         return url;
@@ -54,13 +65,8 @@ public class RequestInformation {
         return body;
     }
 
-    public Headers getHeaders() {
-        return headers;
-    }
 
-    public MultivaluedMap<String, Object> getMultipart() {
-        return multipart;
-    }
+
 
     public HashMap<String, String> getQueryParams() {
         return queryParams;

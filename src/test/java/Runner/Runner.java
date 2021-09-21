@@ -14,3 +14,5 @@ public class Runner {
 }
 //src/test/resources/CreateUser.feature
 //mvn serenity:aggregate
+//gradle clean cucumber -Psuite=@Projects
+//gradle clean cucumber -Psuite=@Items

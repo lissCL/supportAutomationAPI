@@ -3,9 +3,13 @@ package Runner;
 import clientapi.FactoryRequest;
 import clientapi.RequestInformation;
 import clientapi.ResponseInformation;
+import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
+//import helpers.JsonHelper;
+
+import org.json.JSONException;
 import org.junit.Assert;
 
 import java.util.HashMap;
@@ -13,6 +17,10 @@ import java.util.Map;
 
 
 public class MyStepdefs {
+    public static final String HOST="http://todo.ly/";
+    public static final String BASIC_AUTHENTICATION="Basic Ym9yaXMucHNhbnRvc0BnbWFpbC5jb206UGFzc3dvcmQxIQ==";
+    public static final String BASIC_AUTHENTICATION_HEADER="Authorization";
+    public static final String TOKEN_AUTHENTICATION_HEADER="Token";
 
     ResponseInformation response = new ResponseInformation();
     Map<String,String> variables= new HashMap<>();
@@ -24,11 +32,15 @@ public class MyStepdefs {
     @When("^the user send (POST|PUT|DELETE|GET) request '(.*)' with json and (BASIC|TOKEN) authentication$")
     public void theUserSendPOSTRequestApiUserJsonWithJsonAndBASICAuthentication(String method, String url, String authentication, String jsonBody) {
         RequestInformation requestInformation = new RequestInformation();
-        requestInformation.setUrl(this.replaceVariables(url));
+        //requestInformation.setUrl(this.replaceVariables(url));
+       //requestInformation.setBody(this.replaceVariables(jsonBody));
+        requestInformation.setUrl(HOST+this.replaceVariables(url));
         requestInformation.setBody(this.replaceVariables(jsonBody));
-        if(authentication.equals("TOKEN")){
-
-        }else{
+        if (authentication.equals("TOKEN")) {
+//            this.authentication = authentication;
+            requestInformation.addHeaders(TOKEN_AUTHENTICATION_HEADER, this.replaceVariables(authentication));
+        }else {
+            requestInformation.addHeaders(BASIC_AUTHENTICATION_HEADER, BASIC_AUTHENTICATION);
 
         }
 
